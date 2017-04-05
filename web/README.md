@@ -1,4 +1,11 @@
 # Запуск окоружения
 
-Для запуска необходимо приложение [Docker](https://docs.docker.com/engine/installation/) и утилита Docker-Compose.
-на ОС Windows
+Для запуска необходимо приложение [Docker](https://docs.docker.com/engine/installation/) с утилитой Docker-Compose.
+
+На ОС Windows после установки Docker требуется:
+  - запустить VirtualBox(устанавливается вместе с Docker);
+  - выбрать виртуальную машину default;
+  - выбрать "Настроить";
+  - выбрать "Сеть";
+  - в "дополнительно" выбрать "Проброс портов";
+  - добавить правило |Протокол|Адрес хоста|
