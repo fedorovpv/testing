@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, g, request
 from multiprocessing import Process
+from argparse import ArgumentParser
 import sqlite3
 import time
 import random
@@ -17,15 +18,10 @@ def get_db():
     return db
 
 
-class delayedInsertProcess:
-    def __init__(self, client_id, service_id):
-        p = Process(target=self.run(client_id,service_id), args=())
-        p.daemon = True                       # Daemonize it
-        p.start()                             # Start the execution
-
-    def run(self, client_id, service_id):
-        time.sleep(random.randint(0, delay))
-        conn = sqlite3.connect(DATABASE)
+def delayed_insert(client_id, service_id):
+    time.sleep(random.randint(0, delay))
+    conn = sqlite3.connect(DATABASE)
+    with conn:
         curs = conn.cursor()
         curs.execute("SELECT * FROM CLIENT_SERVICE"
                      " WHERE CLIENTS_CLIENT_ID = {clnt_id}"
@@ -35,7 +31,6 @@ class delayedInsertProcess:
         if not db_services:
             curs.execute("INSERT INTO CLIENT_SERVICE(CLIENTS_CLIENT_ID, SERVICES_SERVICE_ID)"
                          "VALUES({clnt_id}, {srv_id})".format(clnt_id=client_id, srv_id=service_id))
-            conn.commit()
 
             curs.execute("SELECT BALANCE FROM BALANCES"
                          " WHERE CLIENTS_CLIENT_ID = {clnt_id}".format(clnt_id=client_id))
@@ -48,7 +43,6 @@ class delayedInsertProcess:
 
             curs.execute("UPDATE BALANCES SET BALANCE = {new_balance}"
                          " WHERE CLIENTS_CLIENT_ID = {clnt_id}".format(new_balance=new_balance, clnt_id=client_id))
-            conn.commit()
 
 
 @app.teardown_appcontext
@@ -60,7 +54,7 @@ def close_connection(exception):
 
 @app.route('/')
 def root():
-    return "It's works!"
+    return "It works!"
 
 
 @app.route('/services')
@@ -95,11 +89,16 @@ def client_service_request():
 def add_service():
     data = request.get_json()
     if 'service_id' in data and 'client_id' in data:
-        ins_proc = delayedInsertProcess(data['client_id'], data['service_id'])
+        p = Process(target=delayed_insert, args=(data['client_id'], data['service_id']))
+        p.daemon = True
+        p.start()
         return "Processing", 202
     return "Request error", 400
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', threaded=True)
-
+    parser = ArgumentParser()
+    parser.add_argument('--port')
+    port = parser.get_default('port')
+    arguments = parser.parse_args()
+    app.run(host='0.0.0.0', threaded=True, port=arguments.port)
