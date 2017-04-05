@@ -1,6 +1,5 @@
 from flask import Flask, jsonify, g, request
 from multiprocessing import Process
-from argparse import ArgumentParser
 import sqlite3
 import time
 import random
@@ -97,8 +96,4 @@ def add_service():
 
 
 if __name__ == '__main__':
-    parser = ArgumentParser()
-    parser.add_argument('--port')
-    port = parser.get_default('port')
-    arguments = parser.parse_args()
-    app.run(host='0.0.0.0', threaded=True, port=arguments.port)
+    app.run(host='0.0.0.0', threaded=True)
