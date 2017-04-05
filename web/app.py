@@ -53,7 +53,7 @@ def close_connection(exception):
 
 @app.route('/')
 def root():
-    return "It works!"
+    return "It's alive!"
 
 
 @app.route('/services')
