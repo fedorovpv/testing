@@ -206,4 +206,4 @@ Processing
 
 
 -----------
-MAINTAINER CJSC "PETER-SERVICE" PAVEL FEDOROV Pavel.Fedorov@billing.ru
+Maintainer CJSC "PETER-SERVICE" Pavel Fedorov Pavel.Fedorov@billing.ru
