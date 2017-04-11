@@ -1,7 +1,10 @@
 FROM ubuntu:latest
-RUN apt-get update -y
-RUN apt-get install -y python-pip python-dev build-essential
-RUN apt-get install -y sqlite3 libsqlite3-dev
+RUN apt-get update -y && apt-get install -y \
+build-essential \
+libsqlite3-dev \
+python-dev \
+python-pip \
+sqlite3
 COPY . /app
 WORKDIR /app
 RUN pip install -r requirements.txt
