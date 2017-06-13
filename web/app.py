@@ -81,7 +81,8 @@ def client_service_request():
         for service in db_services:
             services['count'] += 1
             services['items'].append({'id': service[0], 'name': service[1], 'cost': service[2]})
-    return jsonify(services)
+        return jsonify(services)
+    return "Request error", 400
 
 
 @app.route('/client/add_service', methods=['POST'])
