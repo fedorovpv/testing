@@ -1,5 +1,5 @@
 # Установка окружения
-Для запуска необходимо приложение [Docker](https://docs.docker.com/engine/installation/) с утилитой Docker-Compose.
+Для запуска необходимо приложение [Docker](https://docs.docker.com/engine/installation/) с утилитой Docker-Compose. Для версий Windows выпущенных до Windows 10 необходимо использовать [Docker Toolbox](https://www.docker.com/products/docker-toolbox).
 
 На ОС Windows после установки Docker требуется:
   - запустить VirtualBox(устанавливается вместе с Docker);
