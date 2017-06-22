@@ -31,7 +31,9 @@ _В ОС Windows команды запускать в Docker Quickstart Terminal
 ## Предусловие
 - Загрузить окружение с github.
 - Установить и проверить установку согласно README.
-- БД clients.db имеет таблицы:
+- Результат выложить на github, приложив лог прогона теста.
+
+- В testing-master/web находится SQLite БД clients.db, которая имеет таблицы:
   - CLIENTS с полями CLIENT_ID и CLIENT_NAME;
   - BALANCES с полями CLIENTS_CLIENT_ID и BALANCE;
 - таблицы CLIENTS и BALANCES связаны "один к одному".
