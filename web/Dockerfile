@@ -5,8 +5,6 @@ RUN apt-get update -y && apt-get install -y \
   python-dev \
   python-pip \
   sqlite3
-COPY . /app
+COPY ./requirements.txt /app/requirements.txt
 WORKDIR /app
 RUN pip install -r requirements.txt
-ENTRYPOINT ["python"]
-CMD ["app.py"]

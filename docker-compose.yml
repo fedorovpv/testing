@@ -1,4 +1,7 @@
 web:
+  volumes:
+    - ./:/app
   build: ./web
   ports:
    - "5000:5000"
+  entrypoint: "python /app/web/app.py"
